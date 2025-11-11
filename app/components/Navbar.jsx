@@ -11,7 +11,7 @@ const Navbar = () => {
       <nav className=" mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold tracking-wide">
-          Coffee<span className="text-amber-900">Shop BD</span>
+          Cafeeno<span className="text-amber-900"> Shop</span>
         </Link>
 
         {/* Desktop Nav */}
