@@ -1,14 +1,21 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const DiscoverSection = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-16 lg:px-24 py-16 bg-[#FFF9F2]">
+    <section className="px-6 sm:px-10 md:px-16 lg:px-24 py-16 bg-[#fffefc]">
       {/* main wrapper */}
       <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
         {/* Left Content */}
-        <div className="max-w-3xl  md:text-left">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="max-w-3xl  md:text-left"
+        >
           <h1 className="text-4xl sm:text-5xl lg:text-[60px] text-[#603809] font-bold mb-6 leading-tight">
             Discover Our Best Coffee.
           </h1>
@@ -24,10 +31,16 @@ const DiscoverSection = () => {
           <button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-md">
             Learn More
           </button>
-        </div>
+        </motion.div>
 
         {/* Right Image */}
-        <div className="flex justify-center md:justify-end w-full md:w-[40%]">
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="flex justify-center md:justify-end w-full md:w-[40%]"
+        >
           <Image
             src="/img/mug.png"
             alt="Coffee Mug"
@@ -35,7 +48,7 @@ const DiscoverSection = () => {
             height={400}
             className="object-contain w-[80%] sm:w-[70%] md:w-full drop-shadow-lg"
           />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+
+import { motion } from "framer-motion";
 
 const Feature_Menu = () => {
   const menuItems = [
@@ -33,11 +37,17 @@ const Feature_Menu = () => {
   ];
 
   return (
-    <section className="px-6 sm:px-10 md:px-16 lg:px-24 py-16 md:py-24 bg-[#f9f6f1]">
+    <section className="px-6 sm:px-10 md:px-16 lg:px-24 py-16 md:py-24 bg-[#fffefc]">
       {/* wrapper */}
       <div>
         {/* heading */}
-        <div className="text-center max-w-6xl mx-auto mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-center max-w-6xl mx-auto mb-12"
+        >
           <h1 className="text-4xl sm:text-5xl lg:text-[60px] text-[#603809] font-bold mb-6 leading-tight">
             Enjoy a New Blend of Coffee Style
           </h1>
@@ -45,12 +55,16 @@ const Feature_Menu = () => {
             Explore all flavours of coffee with us. There’s always a new cup
             worth experiencing.
           </p>
-        </div>
+        </motion.div>
 
         {/* menu cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {menuItems.map((item) => (
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              viewport={{ once: true }}
               key={item.id}
               className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
             >
@@ -73,7 +87,7 @@ const Feature_Menu = () => {
                   Order Now
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
