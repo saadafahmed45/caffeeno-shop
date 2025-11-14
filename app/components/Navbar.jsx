@@ -63,7 +63,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link href="/contact" className="hover:text-amber-200 transition">
+            <Link href="/contactUs" className="hover:text-amber-200 transition">
               Contact Us
             </Link>
           </li>
