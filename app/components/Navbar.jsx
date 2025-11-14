@@ -1,14 +1,45 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react"; // for icons
+import React, { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname(); // get current route
+
+  const isHome = pathname === "/"; // check for home route
+
+  // Scroll effect only for home page
+  useEffect(() => {
+    if (!isHome) return; // no scroll effect on other pages
+
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHome]);
 
   return (
-    <header className="bg-amber-500 text-white shadow-md">
-      <nav className=" mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 
+        ${
+          isHome
+            ? isScrolled
+              ? "bg-amber-500 shadow-md"
+              : "bg-transparent"
+            : "bg-amber-500 shadow-md"
+        }
+      `}
+    >
+      <nav className="mx-auto px-6 md:px-12 py-4 flex items-center justify-between text-white">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold tracking-wide">
           Cafeeno<span className="text-amber-900"> Shop</span>
@@ -17,22 +48,22 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <ul className="hidden md:flex items-center gap-8 text-lg">
           <li>
-            <Link href="/" className="hover:text-amber-900 transition">
+            <Link href="/" className="hover:text-amber-200 transition">
               Home
             </Link>
           </li>
           <li>
-            <Link href="/menu" className="hover:text-amber-900 transition">
+            <Link href="/menu" className="hover:text-amber-200 transition">
               Menu
             </Link>
           </li>
           <li>
-            <Link href="/about" className="hover:text-amber-900 transition">
+            <Link href="/about" className="hover:text-amber-200 transition">
               About
             </Link>
           </li>
           <li>
-            <Link href="/contact" className="hover:text-amber-900 transition">
+            <Link href="/contact" className="hover:text-amber-200 transition">
               Contact Us
             </Link>
           </li>
@@ -42,7 +73,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="/login"
-            className="border border-white text-white px-4 py-2 rounded-full hover:bg-white hover:text-amber-600 transition"
+            className="border border-white px-4 py-2 rounded-full hover:bg-white hover:text-amber-600 transition"
           >
             Login
           </Link>

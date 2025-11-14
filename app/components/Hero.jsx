@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="relative h-[90vh] flex items-center justify-start text-white overflow-hidden">
+    <section className="relative h-screen flex items-center justify-start text-white overflow-hidden">
       {/* Background Image */}
       <Image
         src="/coffee_bg.png" // place image in /public folder
@@ -25,7 +25,7 @@ const Hero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="relative z-10 max-w-4xl px-6 sm:px-10 md:px-16 lg:px-24"
+        className="relative z-10 max-w-4xl px-6 sm:px-10 md:px-16 lg:px-24 mt-8"
       >
         <p className="text-base sm:text-lg md:text-xl mb-3 sm:mb-4">
           We’ve got your morning covered with
