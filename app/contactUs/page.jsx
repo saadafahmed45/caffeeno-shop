@@ -1,68 +1,96 @@
-export default function ContactUs() {
+"use client";
+
+import React from "react";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+
+const ContactSection = () => {
   return (
-    <section className="bg-gray-100 py-12 px-4 max-w-7xl mx-auto my-16">
-      <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
-      <div className="grid md:grid-cols-2 gap-8">
-        {/* Contact Info */}
-        <div className="space-y-4">
-          <div>
-            <h3 className="font-semibold mb-2">Address</h3>
-            <p>123 Main Street, City, Country</p>
+    <section className="px-6 sm:px-10 md:px-16 lg:px-24 py-20 bg-[#FFF9F2] mt-12">
+      {/* HEADING */}
+      <div className="text-center mb-16">
+        <h2 className="text-4xl sm:text-5xl font-extrabold text-[#603809]">
+          Contact Us
+        </h2>
+        <p className="text-gray-600 mt-3 max-w-xl mx-auto">
+          Have questions or want to connect with us? We’re always here to help.
+        </p>
+      </div>
+
+      {/* GRID */}
+      <div className="grid md:grid-cols-2 gap-12">
+        {/* LEFT SIDE – CONTACT INFO */}
+        <div className="space-y-8">
+          <div className="flex gap-4 items-start">
+            <div className="p-4 bg-[#603809]/10 rounded-xl">
+              <FaPhoneAlt className="text-[#603809] text-2xl" />
+            </div>
+            <div>
+              <h4 className="text-xl font-semibold text-[#603809]">Phone</h4>
+              <p className="text-gray-600">+880 1234 567 890</p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold mb-2">Phone</h3>
-            <p>+1 (555) 123-4567</p>
+
+          <div className="flex gap-4 items-start">
+            <div className="p-4 bg-[#603809]/10 rounded-xl">
+              <FaEnvelope className="text-[#603809] text-2xl" />
+            </div>
+            <div>
+              <h4 className="text-xl font-semibold text-[#603809]">Email</h4>
+              <p className="text-gray-600">support@coffeehouse.com</p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold mb-2">Email</h3>
-            <p>contact@yourdomain.com</p>
+
+          <div className="flex gap-4 items-start">
+            <div className="p-4 bg-[#603809]/10 rounded-xl">
+              <FaMapMarkerAlt className="text-[#603809] text-2xl" />
+            </div>
+            <div>
+              <h4 className="text-xl font-semibold text-[#603809]">Location</h4>
+              <p className="text-gray-600">
+                123 Coffee Street, Dhaka, Bangladesh
+              </p>
+            </div>
           </div>
         </div>
-        {/* Contact Form */}
-        <form
-          className="bg-white p-8 rounded shadow space-y-4"
-          action="#"
-          method="POST"
-        >
+
+        {/* RIGHT SIDE – CONTACT FORM */}
+        <form className="bg-white shadow-lg rounded-2xl p-8 space-y-6">
           <div>
-            <label className="block mb-2 font-semibold" htmlFor="name">
+            <label className="block mb-1 text-[#603809] font-medium">
               Name
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
+              placeholder="Enter your name"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#603809]"
             />
           </div>
+
           <div>
-            <label className="block mb-2 font-semibold" htmlFor="email">
+            <label className="block mb-1 text-[#603809] font-medium">
               Email
             </label>
             <input
               type="email"
-              id="email"
-              name="email"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
+              placeholder="Enter your email"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#603809]"
             />
           </div>
+
           <div>
-            <label className="block mb-2 font-semibold" htmlFor="message">
+            <label className="block mb-1 text-[#603809] font-medium">
               Message
             </label>
             <textarea
-              id="message"
-              name="message"
               rows="4"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
+              placeholder="Write your message"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-[#603809]"
             ></textarea>
           </div>
+
           <button
             type="submit"
-            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+            className="w-full bg-[#603809] text-white py-3 rounded-xl font-semibold hover:bg-[#502e07] transition"
           >
             Send Message
           </button>
@@ -70,4 +98,6 @@ export default function ContactUs() {
       </div>
     </section>
   );
-}
+};
+
+export default ContactSection;

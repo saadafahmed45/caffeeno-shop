@@ -1,13 +1,16 @@
 "use client";
+
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react"; // Import ShoppingCart icon
 import { usePathname } from "next/navigation";
+import { useCart } from "../context/CartContext"; // Your cart hook
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname(); // get current route
+  const { cart } = useCart(); // get cart items
 
   const isHome = pathname === "/"; // check for home route
 
@@ -65,6 +68,20 @@ const Navbar = () => {
           <li>
             <Link href="/contactUs" className="hover:text-amber-200 transition">
               Contact Us
+            </Link>
+          </li>
+          {/* Cart with icon and indicator */}
+          <li className="relative">
+            <Link
+              href="/cart"
+              className="flex items-center hover:text-amber-200 transition"
+            >
+              <ShoppingCart size={24} />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+                  {cart.length}
+                </span>
+              )}
             </Link>
           </li>
         </ul>
