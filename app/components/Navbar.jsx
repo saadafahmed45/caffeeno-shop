@@ -139,12 +139,30 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+
+        <div className="flex gap-6">
+          <Link
+            href="/cart"
+            className={`flex md:hidden items-center transition ${
+              pathname === "/cart"
+                ? "text-amber-200 font-semibold"
+                : "text-white"
+            } hover:text-amber-200`}
+          >
+            <ShoppingCart size={24} />
+            {cart.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+                {cart.length}
+              </span>
+            )}
+          </Link>
+          <button
+            className="md:hidden text-white"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Dropdown */}
