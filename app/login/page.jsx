@@ -11,7 +11,7 @@ const LoginSection = () => {
         {/* LEFT IMAGE */}
         <div className="relative hidden lg:block lg:w-1/2">
           <Image
-            src="https://images.unsplash.com/photo-1606660265514-358ebbadc80d?auto=format&fit=crop&w=1600&q=80"
+            src="https://images.pexels.com/photos/28495590/pexels-photo-28495590.jpeg"
             alt="Coffee Login"
             fill
             className="object-cover"
@@ -48,11 +48,10 @@ const LoginSection = () => {
             className="flex items-center justify-center gap-3 w-full py-3 border rounded-xl 
             hover:bg-gray-50 transition duration-300"
           >
-            <Image
-              src="https://images.pexels.com/photos/28495590/pexels-photo-28495590.jpeg"
-              width={25}
-              height={25}
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
               alt="Google"
+              className="w-12"
             />
             <span className="font-medium">Sign in with Google</span>
           </button>

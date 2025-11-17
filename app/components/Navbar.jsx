@@ -36,9 +36,9 @@ const Navbar = () => {
         ${
           isHome
             ? isScrolled
-              ? "bg-amber-500 shadow-md"
+              ? "bg-linear-to-r from-[#b3762f] to-[#d6a86c]"
               : "bg-transparent"
-            : "bg-amber-500 shadow-md"
+            : "bg-linear-to-r from-[#b3762f] to-[#d6a86c]"
         }
       `}
     >
@@ -51,30 +51,66 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <ul className="hidden md:flex items-center gap-8 text-lg">
           <li>
-            <Link href="/" className="hover:text-amber-200 transition">
+            <Link
+              href="/"
+              className={`pb-1 border-b-2 transition ${
+                pathname === "/"
+                  ? "border-white text-white"
+                  : "border-transparent hover:border-amber-200"
+              }`}
+            >
               Home
             </Link>
           </li>
+
           <li>
-            <Link href="/menu" className="hover:text-amber-200 transition">
+            <Link
+              href="/menu"
+              className={`pb-1 border-b-2 transition ${
+                pathname === "/menu"
+                  ? "border-white text-white"
+                  : "border-transparent hover:border-amber-200"
+              }`}
+            >
               Menu
             </Link>
           </li>
+
           <li>
-            <Link href="/about" className="hover:text-amber-200 transition">
+            <Link
+              href="/about"
+              className={`pb-1 border-b-2 transition ${
+                pathname === "/about"
+                  ? "border-white text-white"
+                  : "border-transparent hover:border-amber-200"
+              }`}
+            >
               About
             </Link>
           </li>
+
           <li>
-            <Link href="/contactUs" className="hover:text-amber-200 transition">
+            <Link
+              href="/contactUs"
+              className={`pb-1 border-b-2 transition ${
+                pathname === "/contactUs"
+                  ? "border-white text-white"
+                  : "border-transparent hover:border-amber-200"
+              }`}
+            >
               Contact Us
             </Link>
           </li>
-          {/* Cart with icon and indicator */}
+
+          {/* Cart */}
           <li className="relative">
             <Link
               href="/cart"
-              className="flex items-center hover:text-amber-200 transition"
+              className={`flex items-center transition ${
+                pathname === "/cart"
+                  ? "text-amber-200 font-semibold"
+                  : "text-white"
+              } hover:text-amber-200`}
             >
               <ShoppingCart size={24} />
               {cart.length > 0 && (
@@ -113,29 +149,69 @@ const Navbar = () => {
 
       {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-amber-600 text-white px-6 py-4 space-y-4">
-          <Link href="/" className="block hover:text-amber-200">
+        <div className="md:hidden bg-linear-to-r from-[#b3762f] to-[#d6a86c] text-white px-6 py-4 space-y-4">
+          <Link
+            href="/"
+            className={`block transition ${
+              pathname === "/" ? "text-amber-200 font-semibold" : "text-white"
+            } hover:text-amber-200`}
+          >
             Home
           </Link>
-          <Link href="/menu" className="block hover:text-amber-200">
+
+          <Link
+            href="/menu"
+            className={`block transition ${
+              pathname === "/menu"
+                ? "text-amber-200 font-semibold"
+                : "text-white"
+            } hover:text-amber-200`}
+          >
             Menu
           </Link>
-          <Link href="/about" className="block hover:text-amber-200">
+
+          <Link
+            href="/about"
+            className={`block transition ${
+              pathname === "/about"
+                ? "text-amber-200 font-semibold"
+                : "text-white"
+            } hover:text-amber-200`}
+          >
             About
           </Link>
-          <Link href="/contact" className="block hover:text-amber-200">
+
+          <Link
+            href="/contactUs"
+            className={`block transition ${
+              pathname === "/contactUs"
+                ? "text-amber-200 font-semibold"
+                : "text-white"
+            } hover:text-amber-200`}
+          >
             Contact Us
           </Link>
+
+          {/* Login / Sign Up */}
           <div className="pt-2 border-t border-amber-400 flex flex-col gap-3">
             <Link
               href="/login"
-              className="block border border-white px-4 py-2 rounded-full text-center hover:bg-white hover:text-amber-600 transition"
+              className={`block border border-white px-4 py-2 rounded-full text-center transition ${
+                pathname === "/login"
+                  ? "bg-white text-amber-600 font-semibold"
+                  : "hover:bg-white hover:text-amber-600"
+              }`}
             >
               Login
             </Link>
+
             <Link
               href="/signup"
-              className="block bg-white text-amber-700 font-semibold px-4 py-2 rounded-full text-center hover:bg-amber-100 transition"
+              className={`block bg-white text-amber-700 font-semibold px-4 py-2 rounded-full text-center transition ${
+                pathname === "/signup"
+                  ? "bg-amber-100 text-amber-700"
+                  : "hover:bg-amber-100"
+              }`}
             >
               Sign Up
             </Link>

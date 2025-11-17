@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const DiscoverSection = () => {
   return (
@@ -28,9 +29,12 @@ const DiscoverSection = () => {
             you have ever tasted.
           </p>
 
-          <button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-md">
+          <Link
+            href={"/menu"}
+            className="bg-linear-to-r from-[#b3762f] to-[#d6a86c] hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 shadow-md"
+          >
             Learn More
-          </button>
+          </Link>
         </motion.div>
 
         {/* Right Image */}
