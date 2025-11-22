@@ -73,7 +73,7 @@ const Feature_Menu = () => {
 
                 {/* SHORT DESCRIPTION */}
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                  {item.desc}
+                  {item.shortDesc}
                 </p>
 
                 {/* PRICE */}

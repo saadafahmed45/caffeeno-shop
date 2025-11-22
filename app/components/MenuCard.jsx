@@ -22,11 +22,11 @@ const cardVariants = {
 };
 
 const MenuCard = ({ item }) => {
-  const { addToCart } = useCart();
+  const { handleAddedCart } = useCart();
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    addToCart(item);
+    handleAddedCart(item);
   };
 
   return (
@@ -72,7 +72,7 @@ const MenuCard = ({ item }) => {
           <div className="p-5 space-y-3">
             {/* Title */}
             <h3 className="text-xl font-bold text-[#603809]">{item.name}</h3>
-            <p className="text-md text-gray-600"> {item.desc}</p>
+            <p className="text-md text-gray-600"> {item.shortDesc}</p>
             {/* Ingredients */}
             <p className="text-xs text-gray-500 line-clamp-2">
               {item.ingredients?.join(", ")}
@@ -123,7 +123,7 @@ const MenuCard = ({ item }) => {
 
             {/* Add to Cart Button */}
             <button
-              onClick={handleAddToCart}
+              // onClick={handleAddToCart}
               disabled={item.stock <= 0}
               className={`w-full mt-4 py-2.5 rounded-lg font-semibold transition-all ${
                 item.stock > 0
@@ -131,7 +131,9 @@ const MenuCard = ({ item }) => {
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >
-              {item.stock > 0 ? "Order Now" : "Out of Stock"}
+              <Link href={`/menu/${item.id}`}>
+                {item.stock > 0 ? "View Details" : "Out of Stock"}
+              </Link>
             </button>
           </div>
         </div>

@@ -41,7 +41,7 @@ const MugSec = () => {
           </p>
 
           <Link
-            href="/shop"
+            href="menu/1"
             className="inline-block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-10 rounded-full transition-transform duration-300 shadow-lg hover:scale-105"
           >
             Order Now
@@ -65,7 +65,7 @@ const MugSec = () => {
               alt="Coffee Cup"
               width={420}
               height={420}
-              className="object-contain drop-shadow-[0_15px_20px_rgba(0,0,0,0.4)]"
+              className="object-contain w-1/2 m-auto drop-shadow-[0_15px_20px_rgba(0,0,0,0.4)]"
             />
           </motion.div>
         </motion.div>

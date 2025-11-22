@@ -1,90 +1,185 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [orders, setOrders] = useState([]); // NEW — store orders
 
-  // Load cart from localStorage on mount
+  const router = useRouter();
+
+  /* -----------------------------------
+    Load Data From localStorage
+  -------------------------------------*/
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedCart = localStorage.getItem("cart");
-      if (storedCart) setCart(JSON.parse(storedCart));
+    const storedCart = localStorage.getItem("cartItems");
+    const storedOrders = localStorage.getItem("orders");
+
+    if (storedCart) {
+      try {
+        setCartItems(JSON.parse(storedCart));
+      } catch {
+        setCartItems([]);
+      }
+    }
+
+    if (storedOrders) {
+      try {
+        setOrders(JSON.parse(storedOrders));
+      } catch {
+        setOrders([]);
+      }
     }
   }, []);
 
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("cart", JSON.stringify(cart));
+  /* -----------------------------------
+    Save to localStorage
+  -------------------------------------*/
+  const updateLocalStorage = (data) => {
+    setCartItems(data);
+    localStorage.setItem("cartItems", JSON.stringify(data));
+  };
+
+  const saveOrders = (data) => {
+    setOrders(data);
+    localStorage.setItem("orders", JSON.stringify(data));
+  };
+
+  /* -----------------------------------
+    Add To Cart
+  -------------------------------------*/
+  const handleAddedCart = (item) => {
+    const copy = [...cartItems];
+    const index = copy.findIndex((i) => i.id === item.id);
+
+    const price = Number(item.price) || 0;
+
+    if (index === -1) {
+      copy.push({
+        ...item,
+        price,
+        quantity: 1,
+        totalPrice: price,
+      });
+
+      updateLocalStorage(copy);
+
+      Swal.fire({
+        title: "Added to cart!",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonText: "Go to cart",
+        cancelButtonText: "Continue shopping",
+      }).then((res) => res.isConfirmed && router.push("/cart"));
+    } else {
+      Swal.fire({
+        title: "Already in cart",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Go to cart",
+        cancelButtonText: "Keep shopping",
+      }).then((res) => res.isConfirmed && router.push("/cart"));
     }
-  }, [cart]);
-
-  // Add to cart
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const exist = prev.find((item) => item.id === product.id);
-
-      if (exist) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        return [...prev, { ...product, quantity: 1 }];
-      }
-    });
-    alert("add to cart");
   };
 
-  // Increment quantity
-  const incrementQty = (id) => {
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
+  /* -----------------------------------
+    Increment / Decrement / Remove
+  -------------------------------------*/
+  const incrementQuantity = (id) => {
+    const updated = cartItems.map((item) =>
+      item.id === id
+        ? {
+            ...item,
+            quantity: Number(item.quantity) + 1,
+            totalPrice: (Number(item.quantity) + 1) * Number(item.price),
+          }
+        : item
     );
+
+    updateLocalStorage(updated);
   };
 
-  // Decrement quantity
-  const decrementQty = (id) => {
-    setCart(
-      (prev) =>
-        prev
-          .map((item) =>
-            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
-          )
-          .filter((item) => item.quantity > 0) // remove if quantity is 0
+  const decrementQuantity = (id) => {
+    const updated = cartItems.map((item) =>
+      item.id === id && item.quantity > 1
+        ? {
+            ...item,
+            quantity: Number(item.quantity) - 1,
+            totalPrice: (Number(item.quantity) - 1) * Number(item.price),
+          }
+        : item
     );
+
+    updateLocalStorage(updated);
   };
 
-  // Remove item
   const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    const updated = cartItems.filter((item) => item.id !== id);
+    updateLocalStorage(updated);
   };
 
-  // Clear cart
-  const clearCart = () => setCart([]);
-
-  // Calculate total price
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+  /* -----------------------------------
+    Totals
+  -------------------------------------*/
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + Number(item.price) * Number(item.quantity),
     0
   );
+
+  const deliveryFee = cartItems.length > 0 ? 5 : 0;
+  const total = subtotal + deliveryFee;
+
+  /* -----------------------------------
+    PLACE ORDER SYSTEM (NEW)
+  -------------------------------------*/
+  const placeOrder = (customerInfo) => {
+    if (cartItems.length === 0) {
+      Swal.fire("Error", "Your cart is empty!", "error");
+      return;
+    }
+
+    // Create order object
+    const newOrder = {
+      id: Date.now(),
+      customer: customerInfo, // name, email, phone, address, etc.
+      items: cartItems,
+      subtotal,
+      deliveryFee,
+      total,
+      date: new Date().toISOString(),
+    };
+
+    const updatedOrders = [...orders, newOrder];
+    saveOrders(updatedOrders);
+
+    // Clear cart
+    updateLocalStorage([]);
+
+    Swal.fire({
+      title: "Order Placed Successfully!",
+      text: "Thank you for your purchase 🎉",
+      icon: "success",
+      confirmButtonText: "View Order",
+    }).then(() => router.push(`/my-orders`));
+  };
 
   return (
     <CartContext.Provider
       value={{
-        cart,
-        addToCart,
-        incrementQty,
-        decrementQty,
+        cartItems,
+        handleAddedCart,
+        incrementQuantity,
+        decrementQuantity,
         removeFromCart,
-        clearCart,
-        totalPrice,
+        subtotal,
+        deliveryFee,
+        total,
+        orders,
+        placeOrder, // NEW — export order function
       }}
     >
       {children}

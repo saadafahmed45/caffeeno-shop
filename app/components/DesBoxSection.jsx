@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const DesBoxSection = () => {
   const desItems = [
@@ -105,9 +106,12 @@ const DesBoxSection = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <button className="bg-amber-500 text-center hover:bg-amber-600 text-black font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-md">
+          <Link
+            href={"contactUs"}
+            className="bg-amber-500 text-center hover:bg-amber-600 text-black font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-md"
+          >
             Join Us
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>

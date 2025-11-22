@@ -2,14 +2,14 @@ export const menuItems = [
   {
     id: 1,
     name: "Cappuccino",
-    desc: "A timeless favorite — rich espresso balanced with steamed milk and a thick layer of velvety foam.",
+    shortDesc: "Classic espresso with steamed milk and velvety foam.",
+    longDesc:
+      "A rich blend of bold espresso, silky steamed milk, and a thick layer of velvety foam — a timeless café favorite crafted for perfect balance.",
     image: "https://images.pexels.com/photos/350478/pexels-photo-350478.jpeg",
-    price: "$54",
+    price: 54,
     category: "Hot Coffee",
     rating: 4.9,
     available: true,
-
-    // New Added
     ingredients: ["Espresso", "Steamed Milk", "Foam"],
     calories: 120,
     prepTime: 4,
@@ -23,14 +23,14 @@ export const menuItems = [
   {
     id: 2,
     name: "Latte",
-    desc: "A smooth blend of espresso and creamy steamed milk.",
+    shortDesc: "Smooth espresso blended with creamy steamed milk.",
+    longDesc:
+      "A smooth and creamy harmony of espresso and steamed milk, offering a mild, comforting, and perfectly balanced coffee experience.",
     image: "https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg",
-    price: "$49",
+    price: 49,
     category: "Hot Coffee",
     rating: 4.8,
     available: true,
-
-    // New Added
     ingredients: ["Espresso", "Milk", "Foam"],
     calories: 180,
     prepTime: 3,
@@ -44,14 +44,14 @@ export const menuItems = [
   {
     id: 3,
     name: "Americano",
-    desc: "Bold espresso with hot water, preserving aroma and flavor.",
+    shortDesc: "Bold espresso diluted with hot water.",
+    longDesc:
+      "Bold espresso softened with hot water, preserving its deep aroma and smooth, robust flavor — simple, pure, and satisfying.",
     image: "https://images.pexels.com/photos/34085/pexels-photo.jpg",
-    price: "$39",
+    price: 39,
     category: "Hot Coffee",
     rating: 4.7,
     available: true,
-
-    // New Added
     ingredients: ["Espresso", "Hot Water"],
     calories: 10,
     prepTime: 2,
@@ -65,14 +65,14 @@ export const menuItems = [
   {
     id: 4,
     name: "Mocha",
-    desc: "Espresso, chocolate, and steamed milk topped with whipped cream.",
+    shortDesc: "Espresso with chocolate and steamed milk.",
+    longDesc:
+      "A delicious blend of espresso, rich chocolate, and steamed milk, topped with fluffy whipped cream for a sweet, indulgent treat.",
     image: "https://images.pexels.com/photos/982612/pexels-photo-982612.jpeg",
-    price: "$59",
+    price: 62,
     category: "Hot Coffee",
     rating: 5.0,
     available: true,
-
-    // New Added
     ingredients: ["Espresso", "Chocolate", "Milk", "Whipped Cream"],
     calories: 320,
     prepTime: 5,
@@ -86,15 +86,15 @@ export const menuItems = [
   {
     id: 6,
     name: "Caramel Frappé",
-    desc: "Espresso, crushed ice, milk, caramel syrup topped with whipped cream.",
+    shortDesc: "Icy caramel-blended coffee topped with cream.",
+    longDesc:
+      "A refreshing blend of espresso, crushed ice, milk, and caramel syrup — finished with whipped cream for a cool, sweet, and energizing delight.",
     image:
       "https://images.pexels.com/photos/22882240/pexels-photo-22882240.jpeg",
-    price: "$65",
+    price: 65,
     category: "Cold Coffee",
     rating: 4.8,
     available: true,
-
-    // New Added
     ingredients: ["Espresso", "Ice", "Milk", "Caramel Syrup"],
     calories: 350,
     prepTime: 6,
@@ -108,14 +108,14 @@ export const menuItems = [
   {
     id: 7,
     name: "Iced Latte",
-    desc: "Espresso with chilled milk over ice.",
+    shortDesc: "Cold milk over espresso poured on ice.",
+    longDesc:
+      "Fresh espresso poured over chilled milk and ice, delivering a smooth, refreshing, and lightly creamy iced coffee experience.",
     image: "https://images.pexels.com/photos/434213/pexels-photo-434213.jpeg",
-    price: "$55",
+    price: 55,
     category: "Cold Coffee",
     rating: 4.7,
     available: true,
-
-    // New Added
     ingredients: ["Espresso", "Cold Milk", "Ice"],
     calories: 120,
     prepTime: 3,
@@ -129,14 +129,14 @@ export const menuItems = [
   {
     id: 8,
     name: "Matcha Latte",
-    desc: "Ceremonial matcha blended with steamed milk.",
+    shortDesc: "Whisked matcha blended with warm milk.",
+    longDesc:
+      "Ceremonial-grade matcha whisked into warm milk to create a vibrant green latte with subtle earthy sweetness and calming energy.",
     image: "https://images.pexels.com/photos/4725593/pexels-photo-4725593.jpeg",
-    price: "$55",
+    price: 55,
     category: "Tea & Latte",
     rating: 4.9,
     available: true,
-
-    // New Added
     ingredients: ["Matcha", "Milk", "Hot Water"],
     calories: 140,
     prepTime: 4,
@@ -150,14 +150,14 @@ export const menuItems = [
   {
     id: 9,
     name: "Chai Latte",
-    desc: "Black tea with warm spices and steamed milk.",
+    shortDesc: "Spiced tea blended with steamed milk.",
+    longDesc:
+      "A cozy blend of black tea and warm spices like cinnamon and cardamom, mixed with steamed milk for a soothing and aromatic drink.",
     image: "https://images.pexels.com/photos/5946617/pexels-photo-5946617.jpeg",
-    price: "$49",
+    price: 42,
     category: "Tea & Latte",
     rating: 4.8,
     available: true,
-
-    // New Added
     ingredients: ["Black Tea", "Milk", "Cinnamon", "Cardamom"],
     calories: 160,
     prepTime: 4,
@@ -171,14 +171,14 @@ export const menuItems = [
   {
     id: 10,
     name: "Croissant",
-    desc: "Flaky, buttery, and golden.",
+    shortDesc: "Flaky, buttery, golden pastry.",
+    longDesc:
+      "A perfectly baked, golden-brown croissant that is buttery, flaky, and irresistibly light — a classic bakery delight.",
     image: "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg",
-    price: "$30",
+    price: 30,
     category: "Pastry",
     rating: 4.9,
     available: true,
-
-    // New Added
     ingredients: ["Butter", "Flour", "Sugar"],
     calories: 250,
     prepTime: 2,
@@ -192,14 +192,14 @@ export const menuItems = [
   {
     id: 11,
     name: "Chocolate Muffin",
-    desc: "Soft chocolate muffin with dark chocolate chunks.",
+    shortDesc: "Rich muffin with dark chocolate chunks.",
+    longDesc:
+      "A soft and moist chocolate muffin filled with rich dark chocolate chunks, offering deep cocoa flavor in every bite.",
     image: "https://images.pexels.com/photos/227432/pexels-photo-227432.jpeg",
-    price: "$32",
+    price: 32,
     category: "Pastry",
     rating: 5.0,
     available: true,
-
-    // New Added
     ingredients: ["Cocoa", "Flour", "Sugar", "Chocolate"],
     calories: 300,
     prepTime: 2,
@@ -213,15 +213,15 @@ export const menuItems = [
   {
     id: 12,
     name: "Brownie",
-    desc: "Fudgy chocolate brownie with crispy top.",
+    shortDesc: "Rich, fudgy chocolate brownie.",
+    longDesc:
+      "A dense and fudgy brownie with a crisp top layer — deeply chocolatey, moist, and perfectly indulgent for dessert lovers.",
     image:
       "https://images.pexels.com/photos/45202/brownie-dessert-cake-sweet-45202.jpeg",
-    price: "$35",
+    price: 35,
     category: "Dessert",
     rating: 4.8,
     available: true,
-
-    // New Added
     ingredients: ["Chocolate", "Butter", "Sugar", "Cocoa"],
     calories: 320,
     prepTime: 3,

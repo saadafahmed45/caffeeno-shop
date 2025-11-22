@@ -30,7 +30,7 @@ const DiscoverSection = () => {
           </p>
 
           <Link
-            href={"/menu"}
+            href={"/about"}
             className="bg-linear-to-r from-[#b3762f] to-[#d6a86c] hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 shadow-md"
           >
             Learn More

@@ -5,9 +5,12 @@ import { motion } from "framer-motion";
 import React from "react";
 import Link from "next/link";
 import MenuCard from "@/app/components/MenuCard";
+import { useCart } from "@/app/context/CartContext";
 
 const Menu_details = ({ params }) => {
   const { id } = React.use(params);
+  const { handleAddedCart } = useCart();
+
   const item = menuItems.find((m) => m.id === parseInt(id));
 
   if (!item) {
@@ -18,42 +21,37 @@ const Menu_details = ({ params }) => {
     );
   }
 
-  // Related Items (same category)
+  // Related Items
   const related = menuItems
     .filter((m) => m.category === item.category && m.id !== item.id)
     .slice(0, 4);
 
-  // Calculate discounted price
+  // Discounted Price
   const discountPrice =
     item.discount > 0
-      ? (
-          parseFloat(item.price.replace("$", "")) *
-          (1 - item.discount / 100)
-        ).toFixed(2)
+      ? (item.price * (1 - item.discount / 100)).toFixed(2)
       : null;
 
   return (
     <div className="bg-[#FFF9F2] min-h-screen">
-      {/* ========= HEADER ========= */}
-      <div className="relative w-full h-[200px] md:h-[310px] overflow-hidden rounded-b-[20px] shadow-2xl">
+      {/* HEADER IMAGE */}
+      <div className="relative w-full h-[250px] md:h-[350px] overflow-hidden rounded-b-[25px] shadow-2xl">
         <img
           src={item.image}
           className="w-full h-full object-cover"
           alt={item.name}
         />
-
-        <div className="absolute inset-0 bg-linear-to-t from-black/85 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
 
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="absolute bottom-12 left-10 text-4xl  md:text-7xl font-extrabold text-white drop-shadow-xl"
+          className="absolute bottom-10 left-10 text-4xl md:text-6xl font-extrabold text-white"
         >
           {item.name}
         </motion.h1>
 
-        {/* Special Tag */}
         {item.isSpecial && (
           <span className="absolute top-6 left-6 bg-orange-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
             ⭐ Special Item
@@ -61,15 +59,15 @@ const Menu_details = ({ params }) => {
         )}
       </div>
 
-      {/* ========= DETAILS SECTION ========= */}
+      {/* DETAILS SECTION */}
       <section className="px-6 sm:px-10 md:px-16 lg:px-28 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {/* LEFT IMAGE GALLERY */}
+          {/* IMAGE */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl overflow-hidden shadow-xl md:h-[650px] bg-white"
+            className="rounded-3xl overflow-hidden shadow-xl bg-white"
           >
             <img
               src={item.image}
@@ -78,7 +76,7 @@ const Menu_details = ({ params }) => {
             />
           </motion.div>
 
-          {/* RIGHT SIDE INFO */}
+          {/* INFO */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -88,7 +86,7 @@ const Menu_details = ({ params }) => {
 
             <p className="mt-1 text-lg text-gray-600">{item.category}</p>
 
-            {/* Price + Discount */}
+            {/* Price */}
             <div className="flex items-end gap-4 mt-4">
               {discountPrice ? (
                 <>
@@ -96,7 +94,7 @@ const Menu_details = ({ params }) => {
                     ${discountPrice}
                   </p>
                   <p className="line-through text-xl text-gray-500">
-                    {item.price}
+                    ${item.price}
                   </p>
                   <span className="bg-red-600 text-white px-3 py-1 rounded-full shadow">
                     -{item.discount}%
@@ -104,14 +102,14 @@ const Menu_details = ({ params }) => {
                 </>
               ) : (
                 <p className="text-4xl font-bold text-orange-700">
-                  {item.price}
+                  ${item.price}
                 </p>
               )}
             </div>
 
-            {/* Description */}
+            {/* LONG DESCRIPTION */}
             <p className="mt-6 text-gray-700 text-lg leading-relaxed">
-              {item.desc}
+              {item.longDesc}
             </p>
 
             {/* Tags */}
@@ -128,25 +126,10 @@ const Menu_details = ({ params }) => {
 
             {/* INFO CARDS */}
             <div className="grid grid-cols-2 gap-4 mt-8">
-              <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow">
-                <p className="text-sm text-gray-500">Calories</p>
-                <p className="text-xl font-semibold">{item.calories} kcal</p>
-              </div>
-
-              <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow">
-                <p className="text-sm text-gray-500">Prep Time</p>
-                <p className="text-xl font-semibold">{item.prepTime} min</p>
-              </div>
-
-              <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow">
-                <p className="text-sm text-gray-500">Stock</p>
-                <p className="text-xl font-semibold">{item.stock} left</p>
-              </div>
-
-              <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow">
-                <p className="text-sm text-gray-500">Sold</p>
-                <p className="text-xl font-semibold">{item.sold} sold</p>
-              </div>
+              <InfoBox label="Calories" value={`${item.calories} kcal`} />
+              <InfoBox label="Prep Time" value={`${item.prepTime} min`} />
+              <InfoBox label="Stock" value={`${item.stock} left`} />
+              <InfoBox label="Sold" value={`${item.sold} sold`} />
             </div>
 
             {/* Ingredients */}
@@ -170,7 +153,7 @@ const Menu_details = ({ params }) => {
 
             {/* Add to Cart */}
             <button
-              onClick={() => addToCart(item)}
+              onClick={() => handleAddedCart(item)}
               className="mt-12 bg-[#603809] hover:bg-[#4a2f07] text-white font-semibold px-14 py-4 rounded-2xl shadow-xl text-lg transition-all"
             >
               Order Now
@@ -179,7 +162,7 @@ const Menu_details = ({ params }) => {
         </div>
       </section>
 
-      {/* ========= RELATED ITEMS ========= */}
+      {/* RELATED ITEMS */}
       {related.length > 0 && (
         <section className="px-6 sm:px-10 md:px-16 lg:px-28 pb-20">
           <h3 className="text-3xl font-bold text-[#603809] mb-8">
@@ -187,8 +170,8 @@ const Menu_details = ({ params }) => {
           </h3>
 
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-            {related.map((item) => (
-              <MenuCard item={item} key={item.id} />
+            {related.map((i) => (
+              <MenuCard item={i} key={i.id} />
             ))}
           </div>
         </section>
@@ -196,5 +179,12 @@ const Menu_details = ({ params }) => {
     </div>
   );
 };
+
+const InfoBox = ({ label, value }) => (
+  <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow">
+    <p className="text-sm text-gray-500">{label}</p>
+    <p className="text-xl font-semibold">{value}</p>
+  </div>
+);
 
 export default Menu_details;

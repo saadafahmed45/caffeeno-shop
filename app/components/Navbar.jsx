@@ -2,28 +2,23 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Menu, X, ShoppingCart } from "lucide-react"; // Import ShoppingCart icon
+import { Menu, X, ShoppingCart } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useCart } from "../context/CartContext"; // Your cart hook
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname(); // get current route
-  const { cart } = useCart(); // get cart items
+  const pathname = usePathname();
+  const { cartItems } = useCart();
 
-  const isHome = pathname === "/"; // check for home route
+  const isHome = pathname === "/";
 
-  // Scroll effect only for home page
   useEffect(() => {
-    if (!isHome) return; // no scroll effect on other pages
+    if (!isHome) return;
 
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -42,7 +37,7 @@ const Navbar = () => {
         }
       `}
     >
-      <nav className="mx-auto px-6 md:px-12 py-4 flex items-center justify-between text-white">
+      <nav className="mx-auto px-6 md:px-24 py-4 flex items-center justify-between text-white relative">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold tracking-wide">
           Cafeeno<span className="text-amber-900"> Shop</span>
@@ -50,59 +45,28 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <ul className="hidden md:flex items-center gap-8 text-lg">
-          <li>
-            <Link
-              href="/"
-              className={`pb-1 border-b-2 transition ${
-                pathname === "/"
-                  ? "border-white text-white"
-                  : "border-transparent hover:border-amber-200"
-              }`}
-            >
-              Home
-            </Link>
-          </li>
+          {/* Links */}
+          {[
+            { path: "/", label: "Home" },
+            { path: "/menu", label: "Menu" },
+            { path: "/about", label: "About" },
+            { path: "/contactUs", label: "Contact Us" },
+          ].map((item) => (
+            <li key={item.path}>
+              <Link
+                href={item.path}
+                className={`pb-1 border-b-2 transition ${
+                  pathname === item.path
+                    ? "border-white text-white"
+                    : "border-transparent hover:border-amber-200"
+                }`}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
 
-          <li>
-            <Link
-              href="/menu"
-              className={`pb-1 border-b-2 transition ${
-                pathname === "/menu"
-                  ? "border-white text-white"
-                  : "border-transparent hover:border-amber-200"
-              }`}
-            >
-              Menu
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/about"
-              className={`pb-1 border-b-2 transition ${
-                pathname === "/about"
-                  ? "border-white text-white"
-                  : "border-transparent hover:border-amber-200"
-              }`}
-            >
-              About
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/contactUs"
-              className={`pb-1 border-b-2 transition ${
-                pathname === "/contactUs"
-                  ? "border-white text-white"
-                  : "border-transparent hover:border-amber-200"
-              }`}
-            >
-              Contact Us
-            </Link>
-          </li>
-
-          {/* Cart */}
+          {/* Cart (DESKTOP) */}
           <li className="relative">
             <Link
               href="/cart"
@@ -113,9 +77,9 @@ const Navbar = () => {
               } hover:text-amber-200`}
             >
               <ShoppingCart size={24} />
-              {cart.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
-                  {cart.length}
+              {cartItems.length > 0 && (
+                <span className="absolute -top-2 -right-3 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+                  {cartItems.length}
                 </span>
               )}
             </Link>
@@ -138,28 +102,29 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* MOBILE Section */}
+        <div className="flex gap-6 items-center md:hidden">
+          {/* Mobile Cart */}
+          <div className="relative">
+            <Link
+              href="/cart"
+              className={`flex items-center transition ${
+                pathname === "/cart"
+                  ? "text-amber-200 font-semibold"
+                  : "text-white"
+              } hover:text-amber-200`}
+            >
+              <ShoppingCart size={26} />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
+          </div>
 
-        <div className="flex gap-6">
-          <Link
-            href="/cart"
-            className={`flex md:hidden items-center transition ${
-              pathname === "/cart"
-                ? "text-amber-200 font-semibold"
-                : "text-white"
-            } hover:text-amber-200`}
-          >
-            <ShoppingCart size={24} />
-            {cart.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-bounce">
-                {cart.length}
-              </span>
-            )}
-          </Link>
-          <button
-            className="md:hidden text-white"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          {/* Mobile Toggle */}
+          <button className="text-white" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
@@ -168,47 +133,24 @@ const Navbar = () => {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-linear-to-r from-[#b3762f] to-[#d6a86c] text-white px-6 py-4 space-y-4">
-          <Link
-            href="/"
-            className={`block transition ${
-              pathname === "/" ? "text-amber-200 font-semibold" : "text-white"
-            } hover:text-amber-200`}
-          >
-            Home
-          </Link>
-
-          <Link
-            href="/menu"
-            className={`block transition ${
-              pathname === "/menu"
-                ? "text-amber-200 font-semibold"
-                : "text-white"
-            } hover:text-amber-200`}
-          >
-            Menu
-          </Link>
-
-          <Link
-            href="/about"
-            className={`block transition ${
-              pathname === "/about"
-                ? "text-amber-200 font-semibold"
-                : "text-white"
-            } hover:text-amber-200`}
-          >
-            About
-          </Link>
-
-          <Link
-            href="/contactUs"
-            className={`block transition ${
-              pathname === "/contactUs"
-                ? "text-amber-200 font-semibold"
-                : "text-white"
-            } hover:text-amber-200`}
-          >
-            Contact Us
-          </Link>
+          {[
+            { path: "/", label: "Home" },
+            { path: "/menu", label: "Menu" },
+            { path: "/about", label: "About" },
+            { path: "/contactUs", label: "Contact Us" },
+          ].map((item) => (
+            <Link
+              key={item.path}
+              href={item.path}
+              className={`block transition ${
+                pathname === item.path
+                  ? "text-amber-200 font-semibold"
+                  : "text-white"
+              } hover:text-amber-200`}
+            >
+              {item.label}
+            </Link>
+          ))}
 
           {/* Login / Sign Up */}
           <div className="pt-2 border-t border-amber-400 flex flex-col gap-3">
